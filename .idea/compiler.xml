@@ -2,21 +2,7 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
-      <module name="appointment-service" target="21" />
-      <module name="appointment-service.main" target="21" />
-      <module name="appointment-service.test" target="21" />
       <module name="eureka-server" target="17" />
-      <module name="eureka-server.main" target="17" />
-      <module name="eureka-server.test" target="17" />
-      <module name="medical-record-service" target="21" />
-      <module name="medical-record-service.main" target="21" />
-      <module name="medical-record-service.test" target="21" />
-      <module name="notification-service" target="21" />
-      <module name="notification-service.main" target="21" />
-      <module name="notification-service.test" target="21" />
-      <module name="user-service" target="21" />
-      <module name="user-service.main" target="21" />
-      <module name="user-service.test" target="21" />
     </bytecodeTargetLevel>
   </component>
 </project>
