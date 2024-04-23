@@ -89,4 +89,8 @@ public class EssenceMedicalRecords {
                 ", treatment='" + treatment + '\'' +
                 '}';
     }
+
+    public int getRecordId() {
+        return 0;
+    }
 }

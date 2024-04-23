@@ -83,5 +83,9 @@ public class LaboratoryResults {
                 ", resultInformationAboutLaboratoryTests='" + resultInformationAboutLaboratoryTests + '\'' +
                 '}';
     }
+
+    public String getResultInfo() {
+        return null;
+    }
 }
 

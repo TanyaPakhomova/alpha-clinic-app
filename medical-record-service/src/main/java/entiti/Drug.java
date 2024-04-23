@@ -64,4 +64,8 @@ public class Drug {
                 ", informationOfDrug='" + informationOfDrug + '\'' +
                 '}';
     }
+
+    public int getDrugId() {
+        return 0;
+    }
 }

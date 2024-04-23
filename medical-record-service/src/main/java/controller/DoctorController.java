@@ -17,7 +17,7 @@ class DoctorController {
     @PostMapping
     public String addDoctor(@RequestBody Doctor doctor) {
         // Валидация данных и создание нового доктора
-       //НАДО ЛИ, наверное по паспорту
+
         // Добавление новой записи в базу данных
         doctors.add(doctor);
         return "Доктор успешно добавлен";
