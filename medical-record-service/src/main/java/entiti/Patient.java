@@ -5,14 +5,15 @@ import java.util.Objects;
 public class Patient {
 
     private final int idNamberPassport;//pk
-    private int namberMedicalRecords;
+    private int phone;
     private String LastNamePatient;
     private String FirstNamePatient;
     private String adres;
 
-    public Patient(int idNamberPassport, int namberMedicalRecords, String lastNamePatient, String firstNamePatient, String adres) {
+
+    public Patient(int idNamberPassport, int phone, String lastNamePatient, String firstNamePatient, String adres) {
         this.idNamberPassport = idNamberPassport;
-        this.namberMedicalRecords = namberMedicalRecords;
+        this.phone = phone;
         LastNamePatient = lastNamePatient;
         FirstNamePatient = firstNamePatient;
         this.adres = adres;
@@ -23,11 +24,11 @@ public class Patient {
     }
 
     public int getNamberMedicalRecords() {
-        return namberMedicalRecords;
+        return phone;
     }
 
     public void setNamberMedicalRecords(int namberMedicalRecords) {
-        this.namberMedicalRecords = namberMedicalRecords;
+        this.phone = namberMedicalRecords;
     }
 
     public String getLastNamePatient() {
@@ -71,7 +72,7 @@ public class Patient {
     public String toString() {
         return "Patient{" +
                 "idNamberPassport=" + idNamberPassport +
-                ", namberMedicalRecords=" + namberMedicalRecords +
+                ", namberMedicalRecords=" + phone +
                 ", LastNamePatient='" + LastNamePatient + '\'' +
                 ", FirstNamePatient='" + FirstNamePatient + '\'' +
                 ", adres='" + adres + '\'' +
