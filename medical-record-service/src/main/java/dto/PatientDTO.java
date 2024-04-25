@@ -1,34 +1,29 @@
-package entiti;
+package dto;
 
 import java.util.Objects;
 
-public class Patient {
-
-    private final int idNamberPassport;
+public class PatientDTO {
+    private  int idNamberPassport;
     private int phone;
     private String LastNamePatient;
     private String FirstNamePatient;
     private String adres;
 
-
-    public Patient(int idNamberPassport, int phone, String lastNamePatient, String firstNamePatient, String adres) {
-        this.idNamberPassport = idNamberPassport;
-        this.phone = phone;
-        LastNamePatient = lastNamePatient;
-        FirstNamePatient = firstNamePatient;
-        this.adres = adres;
-    }
-
+public PatientDTO(){};
     public int getIdNamberPassport() {
         return idNamberPassport;
     }
 
-    public int getNamberMedicalRecords() {
+    public void setIdNamberPassport(int idNamberPassport) {
+        this.idNamberPassport = idNamberPassport;
+    }
+
+    public int getPhone() {
         return phone;
     }
 
-    public void setNamberMedicalRecords(int namberMedicalRecords) {
-        this.phone = namberMedicalRecords;
+    public void setPhone(int phone) {
+        this.phone = phone;
     }
 
     public String getLastNamePatient() {
@@ -58,21 +53,20 @@ public class Patient {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Patient)) return false;
-        Patient patient = (Patient) o;
-        return getIdNamberPassport() == patient.getIdNamberPassport() && getNamberMedicalRecords() == patient.getNamberMedicalRecords() && Objects.equals(getLastNamePatient(), patient.getLastNamePatient()) && Objects.equals(getFirstNamePatient(), patient.getFirstNamePatient()) && Objects.equals(getAdres(), patient.getAdres());
+        if (!(o instanceof PatientDTO that)) return false;
+        return idNamberPassport == that.idNamberPassport && getPhone() == that.getPhone() && Objects.equals(LastNamePatient, that.LastNamePatient) && Objects.equals(FirstNamePatient, that.FirstNamePatient) && Objects.equals(adres, that.adres);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getIdNamberPassport(), getNamberMedicalRecords(), getLastNamePatient(), getFirstNamePatient(), getAdres());
+        return Objects.hash(idNamberPassport, getPhone(), LastNamePatient, FirstNamePatient, adres);
     }
 
     @Override
     public String toString() {
-        return "Patient{" +
+        return "PatientDTO{" +
                 "idNamberPassport=" + idNamberPassport +
-                ", namberMedicalRecords=" + phone +
+                ", phone=" + phone +
                 ", LastNamePatient='" + LastNamePatient + '\'' +
                 ", FirstNamePatient='" + FirstNamePatient + '\'' +
                 ", adres='" + adres + '\'' +
