@@ -30,10 +30,6 @@ public class User {
     @Temporal(TemporalType.DATE)
     private Date dateOfBirth;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "user_type", nullable = false)
-    private UserType userType;
-
     public User() {}
 
     public Long getId() {
@@ -90,14 +86,6 @@ public class User {
 
     public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
-    }
-
-    public UserType getUserType() {
-        return userType;
-    }
-
-    public void setUserType(UserType userType) {
-        this.userType = userType;
     }
 }
 

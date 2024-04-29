@@ -12,3 +12,20 @@ Alpha Clinic App is a comprehensive solution designed for clinics to manage appo
 
 
 ![Example Image](/Users/tanya/Downloads/image.png "Sequence diagram")
+
+import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.prometheus.PrometheusConfig;
+import io.micrometer.prometheus.PrometheusMeterRegistry;
+
+public class Application {
+public static void main(String[] args) {
+PrometheusMeterRegistry registry = new PrometheusMeterRegistry(PrometheusConfig.DEFAULT);
+registry.config().commonTags("application", "MyJavaMicroservice");
+
+        // Добавление метрик
+registry.counter("custom_metric_counter").increment();
+        
+        // Далее код приложения
+    }
+}
+
