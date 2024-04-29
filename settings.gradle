@@ -3,4 +3,5 @@ rootProject.name = 'alpha-clinic-app'
 include ':user-service'
 include 'user-service:src:main:resources'
 findProject(':user-service:src:main:resources')?.name = 'resources'
+include 'api-gateway'
 
