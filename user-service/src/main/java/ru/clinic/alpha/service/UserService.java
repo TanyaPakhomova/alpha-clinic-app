@@ -13,25 +13,28 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
+    //private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
     }
 
     public User registerUser(User user) {
         // Encrypt the user password before saving
-        String encodedPassword = passwordEncoder.encode(user.getPassword());
-        user.setPassword(encodedPassword);
+        // String encodedPassword = passwordEncoder.encode(user.getPassword());
+        // user.setPassword(encodedPassword);
+        // todo
         return userRepository.save(user);
     }
 
     public Optional<User> authenticateUser(String username, String password) {
         Optional<User> user = userRepository.findByUsername(username);
         // Check if user is found and the password matches
-        if (user.isPresent() && passwordEncoder.matches(password, user.get().getPassword())) {
+//        if (user.isPresent() && passwordEncoder.matches(password, user.get().getPassword())) {
+//            return user;
+//        }
+        if (user.isPresent() && password.equals(user.get().getPassword())) {
             return user;
         }
         return Optional.empty();
