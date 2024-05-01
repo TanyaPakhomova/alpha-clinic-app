@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class Main {
     public static void main(String[] args) {
-        SpringApplication.run(Main.class);
-        System.out.println("Точка входа");
+        SpringApplication.run(Main.class,args);
+
     }
 }
