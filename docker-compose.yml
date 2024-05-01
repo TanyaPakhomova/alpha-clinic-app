@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  api-gateway:
+    build:
+      context: .
+      dockerfile: 'api-gateway/src/main/docker/Dockerfile'
+    container_name: api-gateway-app
+    depends_on:
+      - user-service
+    ports:
+      - 8080:8080
+  user-service:
+    build:
+      context: .
+      dockerfile: 'user-service/src/main/docker/Dockerfile'
+    container_name: user-service-app
+    depends_on:
+      - db-service
+
+  db-service:
+    image: 'postgres'
+    container_name: clinic-app-db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123
+    ports:
+      - 5432:5432
