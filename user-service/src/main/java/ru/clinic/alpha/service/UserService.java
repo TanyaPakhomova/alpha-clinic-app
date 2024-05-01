@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.clinic.alpha.model.User;
 import ru.clinic.alpha.repository.UserRepository;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 
 import java.util.Optional;

@@ -1,5 +1,6 @@
 package ru.clinic.alpha.controller;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.clinic.alpha.model.User;
@@ -33,20 +34,19 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestParam String username, @RequestParam String password) {
         Optional<User> user = userService.authenticateUser(username, password);
-        if (user != null) {
+        if (user.isPresent()) {
             return ResponseEntity.ok("User authenticated successfully");
         } else {
-            return ResponseEntity.status(401).body("Invalid username or password");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
         }
     }
 
     // Endpoint to get user details
     @GetMapping("/{userId}")
     public ResponseEntity<?> getUserDetails(@PathVariable Long userId) {
-        Optional<User> user = userService.findUserById(userId);
-        if (user.isPresent()) {
-            return ResponseEntity.ok(user);
-        }
-        return ResponseEntity.notFound().build();
+        Optional<User> userOptional = userService.findUserById(userId);
+        return userOptional
+                .map(user -> ResponseEntity.ok(user))
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 }
