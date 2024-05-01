@@ -78,10 +78,8 @@ class UserControllerTest {
         expectedUser.setUsername("testUser");
         when(userService.findUserById(1L)).thenReturn(Optional.of(expectedUser));
 
-        // Act
         ResponseEntity<?> response = userController.getUserDetails(1L);
 
-        // Assert
         assertTrue(response.getBody() instanceof User);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         User actualUser = (User) response.getBody();

@@ -16,14 +16,17 @@ public class ApiGatewayApplication {
     @Bean
     public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
         return builder.routes()
-                .route("user-service", r -> r.path("/users/**")
-                        .uri("lb://USER-SERVICE"))
-                .route("appointment-service", r -> r.path("/appointments/**")
-                        .uri("lb://APPOINTMENT-SERVICE"))
-                .route("medical-record-service", r -> r.path("/medical-records/**")
-                        .uri("lb://MEDICAL-RECORD-SERVICE"))
-                .route("notification-service", r -> r.path("/notifications/**")
-                        .uri("lb://NOTIFICATION-SERVICE"))
+                .route("user-service", r -> r.path("/api/users/**")
+                        .uri("http://user-service:8080/api/users"))
+
+                .route("appointment-service", r -> r.path("/api/appointments/**")
+                        .uri("http://appointment-service:8080/api/appointments"))
+
+                .route("medical-record-service", r -> r.path("/api/medical-records/**")
+                        .uri("http://medical-record-service:8080/api/medical-records"))
+
+                .route("notification-service", r -> r.path("/api/notifications/**")
+                        .uri("http://notification-service:8080/api/notifications"))
                 .build();
     }
 }

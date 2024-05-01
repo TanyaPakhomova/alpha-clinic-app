@@ -12,16 +12,17 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
-    //private final PasswordEncoder passwordEncoder;
+    // private final PasswordEncoder passwordEncoder;
 
     @Autowired
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
+        // this.passwordEncoder = passwordEncoder;
     }
 
     public User registerUser(User user) {
         // Encrypt the user password before saving
-        // String encodedPassword = passwordEncoder.encode(user.getPassword());
+         // String encodedPassword = passwordEncoder.encode(user.getPassword());
         // user.setPassword(encodedPassword);
         // todo
         return userRepository.save(user);

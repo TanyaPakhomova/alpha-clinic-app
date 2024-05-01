@@ -1,6 +1,15 @@
 version: '3.8'
 
 services:
+  api-gateway:
+    build:
+      context: .
+      dockerfile: 'api-gateway/src/main/docker/Dockerfile'
+    container_name: api-gateway-app
+    depends_on:
+      - user-service
+    ports:
+      - 8080:8080
   user-service:
     build:
       context: .
@@ -8,8 +17,6 @@ services:
     container_name: user-service-app
     depends_on:
       - db-service
-    ports:
-      - 8080:8080
 
   db-service:
     image: 'postgres'
