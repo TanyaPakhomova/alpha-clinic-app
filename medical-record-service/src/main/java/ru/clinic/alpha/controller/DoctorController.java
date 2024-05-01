@@ -1,10 +1,13 @@
 package ru.clinic.alpha.controller;
 
+import org.springframework.http.ResponseEntity;
 import ru.clinic.alpha.entiti.Doctor;
 import org.springframework.web.bind.annotation.*;
 
 import ru.clinic.alpha.service.DoctorServise;
 import ru.clinic.alpha.service.DoctorServise;
+
+import java.util.Optional;
 
 // Контроллер для докторов
 @RestController
@@ -18,28 +21,24 @@ class DoctorController {
 
 
     // Метод для добавления доктора
-    @PostMapping
-    public String addDoctor(@RequestBody Doctor doctor) {
-
-        // Добавление новой записи в базу данных
-        doctorService.addDoctor(doctor);
-        return "Доктор успешно добавлен";
+    @PostMapping(value = "/addDoctor")
+    public ResponseEntity<?>  addDoctor(@RequestBody Doctor doctor) {
+       Doctor addedDoctor = doctorService.addDoctor(doctor);
+        if (addedDoctor != null) {
+            return ResponseEntity.ok(addedDoctor);
+        } else {
+            return ResponseEntity.badRequest().body("ok");
+        }
+    }
+    @GetMapping("/{doctorId}")
+    public ResponseEntity<?> getDoctorDetails(@PathVariable Long doctorId) {
+        Optional<Doctor> doctorOptional = doctorService.findDoctorById(Math.toIntExact(doctorId));
+        return doctorOptional
+                .map(doctor -> ResponseEntity.ok(doctor))
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-//    // Метод для удаления доктора по ID
-//    @DeleteMapping("/{doctorId}")
-//    public String deleteDoctor(@PathVariable int doctorId) {
-//        // Поиск доктора по ID
-//        Doctor doctorToDelete = doctorService.findDoctorById()
-//                .filter(d -> d.getDoctorId() == doctorId)
-//                .findFirst()
-//                .orElse(null);
-//
-//        if (doctorToDelete != null) {
-//            doctors.remove(doctorToDelete);
-//            return "Доктор успешно удален";
-//        } else {
-//            return "Доктор не найден";
-//        }
-//    }
+
+
+
 }

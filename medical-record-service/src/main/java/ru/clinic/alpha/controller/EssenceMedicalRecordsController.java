@@ -1,48 +1,52 @@
 package ru.clinic.alpha.controller;
 
+import org.springframework.http.ResponseEntity;
+import ru.clinic.alpha.entiti.Doctor;
 import ru.clinic.alpha.entiti.EssenceMedicalRecords;
 import org.springframework.web.bind.annotation.*;
 import ru.clinic.alpha.repozitory.EssenceMedicalRecordsRepozitori;
+import ru.clinic.alpha.service.EssenceMedicalRecordsServise;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 // Контроллер для медицинских записей
 @RestController
 @RequestMapping("/api/medical_records")
  class EssenceMedicalRecordController {
 
-    private final EssenceMedicalRecordsRepozitori essenceMedicalRecordsRepozitori;
+    private final EssenceMedicalRecordsServise essenceMedicalRecordsServise;
 
-    public EssenceMedicalRecordController(EssenceMedicalRecordsRepozitori essenceMedicalRecordsRepozitori) {
-        this.essenceMedicalRecordsRepozitori = essenceMedicalRecordsRepozitori;
+    public EssenceMedicalRecordController(EssenceMedicalRecordsServise essenceMedicalRecordsServise) {
+        this.essenceMedicalRecordsServise = essenceMedicalRecordsServise;
     }
 
     // Метод для добавления медицинской записи
-    @PostMapping
-    public String addEssenceMedicalRecord(@RequestBody EssenceMedicalRecords essenceMedicalRecord) {
+    @PostMapping(value = "/addEssenceMedicalRecord")
+    public ResponseEntity<?> addEssenceMedicalRecord(@RequestBody EssenceMedicalRecords essenceMedicalRecord) {
 
         // Добавление новой записи в базу данных
-        essenceMedicalRecordsRepozitori.add(essenceMedicalRecord);
-        return "Медицинская запись успешно добавлена";
+        EssenceMedicalRecords addEsMedRec = essenceMedicalRecordsServise.addEssenceMedicalRecords(essenceMedicalRecord);
+        if (addEsMedRec != null) {
+            return ResponseEntity.ok(addEsMedRec);
+        } else {
+            return ResponseEntity.badRequest().body("ok");
+        }
     }
 
 //    // Метод для удаления медицинской записи по ID
 //    @DeleteMapping("/{recordId}")
-//    public String deleteEssenceMedicalRecord(@PathVariable int recordId) {
-//        // Поиск записи по ID
-//        EssenceMedicalRecordsRepozitori recordToDelete = essenceMedicalRecordsRepozitori.stream()
-//                .filter(record -> record.getRecordId() == recordId)
-//                .findFirst()
-//                .orElse(null);
-//
-//        if (recordToDelete != null) {
-//            essenceMedicalRecords.remove(recordToDelete);
-//            return "Медицинская запись успешно удалена";
+//    public ResponseEntity<?> delDoctor(@RequestBody EssenceMedicalRecords essenceMedicalRecords) {
+//        EssenceMedicalRecords addedDoctor = essenceMedicalRecordsServise.d;
+//        if (addedDoctor != null) {
+//            return ResponseEntity.ok(addedDoctor);
 //        } else {
-//            return "Запись не найдена";
+//            return ResponseEntity.badRequest().body("ok");
 //        }
 //    }
 
+    }
 
-}
+
+

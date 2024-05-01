@@ -18,10 +18,14 @@ public class LaboratoryResultsController {
     private final List<LaboratoryResults> laboratoryResults = new ArrayList<>();
 
     @Autowired
-    private LaboratoryResultsRepozitory laboratoryResultRepository; //  есть репозиторий для операций с базой данных
+    private LaboratoryResultsRepozitory laboratoryResultRepository;
+
+    public LaboratoryResultsController(LaboratoryResultsRepozitory laboratoryResultRepository) {
+        this.laboratoryResultRepository = laboratoryResultRepository;
+    }
 
     // Добавление нового результата лабораторного исследования
-    @PostMapping
+    @PostMapping("/addResults")
     public ResponseEntity<String> addResult(@RequestBody LaboratoryResults result) {
         laboratoryResultRepository.save(result);
         return ResponseEntity.status(HttpStatus.CREATED).body("Результат лабораторного исследования успешно добавлен");

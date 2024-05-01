@@ -15,6 +15,7 @@ public class DrugServise {
         this.drugRepozitory = drugRepozitory;
     }
 
+
     @Autowired
     public Drug addDrug(Drug drug) {
 
@@ -23,5 +24,10 @@ public class DrugServise {
 
     public Optional<Drug> findDoctorById(Integer drugId ) {
         return drugRepozitory.findById(drugId);
+    }
+
+
+    public Optional<Drug> findDrugById(int intExact) {
+        return null ;
     }
 }

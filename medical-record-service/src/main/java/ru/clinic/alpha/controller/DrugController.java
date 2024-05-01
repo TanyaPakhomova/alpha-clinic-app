@@ -1,43 +1,57 @@
 package ru.clinic.alpha.controller;
 
+import org.springframework.http.ResponseEntity;
+import ru.clinic.alpha.entiti.Doctor;
 import ru.clinic.alpha.entiti.Drug;
 import org.springframework.web.bind.annotation.*;
 import ru.clinic.alpha.repozitory.DrugRepozitory;
+import ru.clinic.alpha.service.DrugServise;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 // Контроллер для лекарств
 @RestController
 @RequestMapping("/api/drugs")
 class DrugController {
 
-    private final DrugRepozitory drugRepozitory;
+    private final DrugServise drugServise;
 
-    public DrugController(DrugRepozitory drugRepozitory) {
-        this.drugRepozitory = drugRepozitory;
+
+    public DrugController(DrugServise drugServise) {
+        this.drugServise = drugServise;
     }
 
     // Метод для добавления лекарства
-    @PostMapping
-    public String addDrug(@RequestBody Drug drug) {
-
-        // Добавление новой записи в базу данных
-        drugRepozitory.save(drug);
-        return "Лекарство успешно добавлено";
+    @PostMapping(value = "/addDrug")
+    public ResponseEntity<?> addDrug(@RequestBody Drug drug) {
+       Drug addedDrug = drugServise.addDrug(drug);
+        if (addedDrug != null) {
+            return ResponseEntity.ok(addedDrug);
+        } else {
+            return ResponseEntity.badRequest().body("ok");
+        }
+    }
+    @GetMapping("/{drugId}")
+    public ResponseEntity<?> getDrug(@PathVariable Long drugId) {
+        Optional<Drug> drugOptional = drugServise.findDrugById(Math.toIntExact(drugId));
+        return drugOptional
+                .map(drug -> ResponseEntity.ok(drug))
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    // Метод для удаления лекарства по ID
+//    // Метод для удаления лекарства по ID
 //    @DeleteMapping("/{drugId}")
-//    public String deleteDrug(@PathVariable int drugId) {
+//    public ResponseEntity<?> deleteDrug(@PathVariable int drugId) {
 //        // Поиск лекарства по ID
-//        Drug drugToDelete = drugRepozitory.stream()
-//                .filter(d -> d.getDrugId() == drugId)
+//        Drug drugToDelete = drugServise.s()
+//                .filter(d -> drugServise.getDrugId() == drugId)
 //                .findFirst()
 //                .orElse(null);
 //
 //        if (drugToDelete != null) {
-//            drugs.remove(drugToDelete);
+//           drugToDelete.(drugToDelete);
 //            return "Лекарство успешно удалено";
 //        } else {
 //            return "Лекарство не найдено";
