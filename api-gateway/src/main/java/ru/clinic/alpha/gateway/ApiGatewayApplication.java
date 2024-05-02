@@ -20,7 +20,7 @@ public class ApiGatewayApplication {
                         .uri("http://user-service:8080/api/users"))
 
                 .route("appointment-service", r -> r.path("/api/appointments/**")
-                        .uri("http://appointment-service:8080/api/appointments"))
+                        .uri("http://appointment-service:9090/api/appointments"))
 
                 .route("medical-record-service", r -> r.path("/api/medical-records/**")
                         .uri("http://medical-record-service:8080/api/medical-records"))

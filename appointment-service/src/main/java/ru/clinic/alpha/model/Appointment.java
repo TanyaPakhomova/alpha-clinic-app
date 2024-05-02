@@ -1,28 +1,31 @@
 package ru.clinic.alpha.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 
 @Entity
-
+@Table(name = "appointments")
 public class Appointment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "appointment_id")
     private Long appointmentId;
 
+    @Column(name = "appointment_time", nullable = false)
     private LocalDateTime appointmentTime;
 
+    @Column(name = "patient_name", nullable = false, length = 255)
     private String patientName;
 
+    @Column(name = "doctor_name", nullable = false, length = 255)
     private String doctorName;
 
+    @Column(name = "specialization", length = 255)
     private String specialization;
 
+    @Column(name = "notes", columnDefinition = "TEXT")
     private String notes;
 
     public Appointment() {
