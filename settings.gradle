@@ -1,5 +1,5 @@
 rootProject.name = 'alpha-clinic-app'
 
 include 'user-service'
+include 'appointment-service'
 include 'api-gateway'
-

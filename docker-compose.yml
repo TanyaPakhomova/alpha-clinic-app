@@ -17,6 +17,13 @@ services:
     container_name: user-service-app
     depends_on:
       - db-service
+  appointment-service:
+    build:
+      context: .
+      dockerfile: 'appointment-service/src/main/docker/Dockerfile'
+    container_name: appointment-service-app
+    depends_on:
+      - db-service
 
   db-service:
     image: 'postgres'
