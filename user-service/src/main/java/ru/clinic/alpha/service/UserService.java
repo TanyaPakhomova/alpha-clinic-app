@@ -40,6 +40,11 @@ public class UserService {
         return Optional.empty();
     }
 
+    public Optional<User> findUserByName(String name) {
+        return userRepository.findByUsername(name);
+    }
+
+
     public Optional<User> findUserById(Long userId) {
         return userRepository.findById(userId);
     }

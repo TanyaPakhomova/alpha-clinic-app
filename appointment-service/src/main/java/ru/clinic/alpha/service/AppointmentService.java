@@ -1,7 +1,11 @@
 package ru.clinic.alpha.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClient;
+import ru.clinic.alpha.exception.UserNotFoundException;
 import ru.clinic.alpha.model.Appointment;
 import ru.clinic.alpha.repository.AppointmentRepository;
 
@@ -13,9 +17,14 @@ public class AppointmentService {
 
     private final AppointmentRepository appointmentRepository;
 
+    private final RestClient userClient;
+
     @Autowired
     public AppointmentService(AppointmentRepository appointmentRepository) {
         this.appointmentRepository = appointmentRepository;
+        this.userClient = RestClient.builder()
+                .baseUrl("http://api-gateway:8080/api/users/search/")
+                .build();
     }
 
     public boolean checkDoctorAvailability(String doctorName, LocalDateTime dateTime) {
@@ -23,6 +32,17 @@ public class AppointmentService {
     }
 
     public Appointment scheduleAppointment(Appointment appointment) {
+        // go to user service
+        String patient = appointment.getPatientName();
+        var status = userClient.get()
+                .uri(patient)
+                .retrieve()
+                .toBodilessEntity()
+                .getStatusCode();
+        if (status.equals(HttpStatusCode.valueOf(404))) {
+            throw new UserNotFoundException();
+        }
+
         return appointmentRepository.save(appointment);
     }
 

@@ -49,4 +49,12 @@ public class UserController {
                 .map(user -> ResponseEntity.ok(user))
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
+
+    @GetMapping("/search/{name}")
+    public ResponseEntity<?> getUserByName(@PathVariable String name) {
+        Optional<User> userOptional = userService.findUserByName(name);
+        return userOptional
+                .map(user -> ResponseEntity.ok(user))
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
 }

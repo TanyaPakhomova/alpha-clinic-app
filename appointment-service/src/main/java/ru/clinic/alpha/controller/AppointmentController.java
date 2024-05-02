@@ -1,11 +1,15 @@
 package ru.clinic.alpha.controller;
 
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import ru.clinic.alpha.exception.NotFoundException;
+import ru.clinic.alpha.exception.UserNotFoundException;
 import ru.clinic.alpha.model.Appointment;
 import ru.clinic.alpha.service.AppointmentService;
 
 import java.time.LocalDateTime;
+
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @RestController
 @RequestMapping(path = "/api/appointments")
@@ -25,7 +29,11 @@ public class AppointmentController {
 
     @PostMapping("/schedule")
     public Appointment scheduleAppointment(@RequestBody Appointment appointment) {
-        return appointmentService.scheduleAppointment(appointment);
+        try {
+            return appointmentService.scheduleAppointment(appointment);
+        } catch (UserNotFoundException ex) {
+            throw new ResponseStatusException(NOT_FOUND, "Unable to find patient");
+        }
     }
 
     @GetMapping("/{appointmentId}")
